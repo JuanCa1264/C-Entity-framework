@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="exafinalpeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="departamento">
+    <Key>
+      <PropertyRef Name="idDepartamento" />
+    </Key>
+    <Property Name="idDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreDepto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="cantEmpleados" Type="Int32" />
+    <Property Name="codTels" Type="Int32" />
+    <NavigationProperty Name="empleado" Relationship="Self.fk_idDepartamento" FromRole="departamento" ToRole="empleado" />
+    <NavigationProperty Name="telefono" Relationship="Self.fkCodTels" FromRole="departamento" ToRole="telefono" />
+  </EntityType>
+  <EntityType Name="empleado">
+    <Key>
+      <PropertyRef Name="codEmpleado" />
+    </Key>
+    <Property Name="codEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="idDepartamento" Type="Int32" />
+    <Property Name="salario" Type="Double" />
+    <Property Name="edad" Type="Int32" />
+    <NavigationProperty Name="departamento" Relationship="Self.fk_idDepartamento" FromRole="empleado" ToRole="departamento" />
+  </EntityType>
+  <EntityType Name="telefono">
+    <Key>
+      <PropertyRef Name="codTels" />
+    </Key>
+    <Property Name="codTels" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="telefono1" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="telDescrip" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="departamento" Relationship="Self.fkCodTels" FromRole="telefono" ToRole="departamento" />
+  </EntityType>
+  <Association Name="fk_idDepartamento">
+    <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
+    <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departamento">
+        <PropertyRef Name="idDepartamento" />
+      </Principal>
+      <Dependent Role="empleado">
+        <PropertyRef Name="idDepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkCodTels">
+    <End Role="telefono" Type="Self.telefono" Multiplicity="0..1" />
+    <End Role="departamento" Type="Self.departamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="telefono">
+        <PropertyRef Name="codTels" />
+      </Principal>
+      <Dependent Role="departamento">
+        <PropertyRef Name="codTels" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="exafinalpeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="departamento" EntityType="Self.departamento" />
+    <EntitySet Name="empleado" EntityType="Self.empleado" />
+    <EntitySet Name="telefono" EntityType="Self.telefono" />
+    <AssociationSet Name="fk_idDepartamento" Association="Self.fk_idDepartamento">
+      <End Role="departamento" EntitySet="departamento" />
+      <End Role="empleado" EntitySet="empleado" />
+    </AssociationSet>
+    <AssociationSet Name="fkCodTels" Association="Self.fkCodTels">
+      <End Role="telefono" EntitySet="telefono" />
+      <End Role="departamento" EntitySet="departamento" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

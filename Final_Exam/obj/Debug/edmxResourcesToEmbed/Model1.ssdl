@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="exafinalpeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="departamento">
+    <Key>
+      <PropertyRef Name="idDepartamento" />
+    </Key>
+    <Property Name="idDepartamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreDepto" Type="varchar" MaxLength="30" />
+    <Property Name="cantEmpleados" Type="int" />
+    <Property Name="codTels" Type="int" />
+  </EntityType>
+  <EntityType Name="empleado">
+    <Key>
+      <PropertyRef Name="codEmpleado" />
+    </Key>
+    <Property Name="codEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="30" />
+    <Property Name="apellidos" Type="varchar" MaxLength="30" />
+    <Property Name="idDepartamento" Type="int" />
+    <Property Name="salario" Type="float" />
+    <Property Name="edad" Type="int" />
+  </EntityType>
+  <EntityType Name="telefono">
+    <Key>
+      <PropertyRef Name="codTels" />
+    </Key>
+    <Property Name="codTels" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="telefono" Type="varchar" MaxLength="9" />
+    <Property Name="telDescrip" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <Association Name="fk_idDepartamento">
+    <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
+    <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departamento">
+        <PropertyRef Name="idDepartamento" />
+      </Principal>
+      <Dependent Role="empleado">
+        <PropertyRef Name="idDepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkCodTels">
+    <End Role="telefono" Type="Self.telefono" Multiplicity="0..1" />
+    <End Role="departamento" Type="Self.departamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="telefono">
+        <PropertyRef Name="codTels" />
+      </Principal>
+      <Dependent Role="departamento">
+        <PropertyRef Name="codTels" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="exafinalpeModelStoreContainer">
+    <EntitySet Name="departamento" EntityType="Self.departamento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="telefono" EntityType="Self.telefono" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_idDepartamento" Association="Self.fk_idDepartamento">
+      <End Role="departamento" EntitySet="departamento" />
+      <End Role="empleado" EntitySet="empleado" />
+    </AssociationSet>
+    <AssociationSet Name="fkCodTels" Association="Self.fkCodTels">
+      <End Role="telefono" EntitySet="telefono" />
+      <End Role="departamento" EntitySet="departamento" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

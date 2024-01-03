@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="exafinalpeModelStoreContainer" CdmEntityContainer="exafinalpeEntities">
+    <EntitySetMapping Name="departamento">
+      <EntityTypeMapping TypeName="exafinalpeModel.departamento">
+        <MappingFragment StoreEntitySet="departamento">
+          <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+          <ScalarProperty Name="nombreDepto" ColumnName="nombreDepto" />
+          <ScalarProperty Name="cantEmpleados" ColumnName="cantEmpleados" />
+          <ScalarProperty Name="codTels" ColumnName="codTels" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empleado">
+      <EntityTypeMapping TypeName="exafinalpeModel.empleado">
+        <MappingFragment StoreEntitySet="empleado">
+          <ScalarProperty Name="codEmpleado" ColumnName="codEmpleado" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="idDepartamento" ColumnName="idDepartamento" />
+          <ScalarProperty Name="salario" ColumnName="salario" />
+          <ScalarProperty Name="edad" ColumnName="edad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="telefono">
+      <EntityTypeMapping TypeName="exafinalpeModel.telefono">
+        <MappingFragment StoreEntitySet="telefono">
+          <ScalarProperty Name="codTels" ColumnName="codTels" />
+          <ScalarProperty Name="telefono1" ColumnName="telefono" />
+          <ScalarProperty Name="telDescrip" ColumnName="telDescrip" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
